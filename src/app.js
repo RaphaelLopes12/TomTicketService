@@ -1,10 +1,18 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const ticketRoutes = require('./routes/tickets');
 
 dotenv.config();
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 
 app.use('/tickets', ticketRoutes);
