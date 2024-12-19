@@ -8,28 +8,28 @@ datasource db {
 }
 
 model Ticket {
-  id             String    @id @default(uuid())
-  protocol       String    @unique
-  subject        String
-  message        String?
-  mimetype       String?
-  priority       Int
-  ticketType     String
-  creationDate   DateTime
-  situation      String?
-  categoryId     String?
-  categoryName   String?
-  departmentId   String?
-  departmentName String?
-  operatorId     String?
-  operatorName   String?
-  statusId       String?
-  statusDesc     String?
-  statusDate     DateTime?
-  organizationId    String?  // ID da organização
-  organizationName  String?  // Nome da organização
-  customerId     String?
-  customer       Customer? @relation("CustomerTickets", fields: [customerId], references: [id])
+  id               String    @id @default(uuid())
+  protocol         String    @unique
+  subject          String
+  message          String?
+  mimetype         String?
+  priority         Int
+  ticketType       String
+  creationDate     DateTime
+  situation        String?
+  categoryId       String?
+  categoryName     String?
+  departmentId     String?
+  departmentName   String?
+  operatorId       String?
+  operatorName     String?
+  statusId         String?
+  statusDesc       String?
+  statusDate       DateTime?
+  customerId       String?
+  organizationId   String?
+  organizationName String?
+  customer         Customer? @relation("CustomerTickets", fields: [customerId], references: [id])
 }
 
 model Customer {

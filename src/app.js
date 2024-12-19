@@ -15,7 +15,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use('/tickets', ticketRoutes);
+app.use('/api/tickets', ticketRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
