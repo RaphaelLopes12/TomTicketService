@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ticket {
+  id             String    @id @default(uuid())
+  protocol       String    @unique
+  subject        String
+  message        String?
+  mimetype       String?
+  priority       Int
+  ticketType     String
+  creationDate   DateTime
+  situation      String?
+  categoryId     String?
+  categoryName   String?
+  departmentId   String?
+  departmentName String?
+  operatorId     String?
+  operatorName   String?
+  statusId       String?
+  statusDesc     String?
+  statusDate     DateTime?
+  organizationId    String?  // ID da organização
+  organizationName  String?  // Nome da organização
+  customerId     String?
+  customer       Customer? @relation("CustomerTickets", fields: [customerId], references: [id])
+}
+
+model Customer {
+  id      String   @id @default(uuid())
+  email   String   @unique
+  name    String?
+  tickets Ticket[] @relation("CustomerTickets")
+}
+
+model ExecutionLog {
+  id         String   @id @default(uuid())
+  executedAt DateTime @default(now())
+  status     String
+  message    String?
+}
