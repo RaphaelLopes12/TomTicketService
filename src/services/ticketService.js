@@ -152,6 +152,46 @@ async function loadInitialTickets() {
 
 }
 
+async function getTickets({ page = 1, size = 10, filters = {}, sort = {} }) {
+    const pageSize = Math.min(size || 10, 100);
+    const offset = (page - 1) * pageSize;
+
+    const where = {};
+    if (filters.status) where.statusDesc = filters.status; 
+    if (filters.priority) where.priority = filters.priority;
+    if (filters.dateFrom && filters.dateTo) {
+        where.creationDate = {
+            gte: new Date(filters.dateFrom),
+            lte: new Date(filters.dateTo),
+        };
+    }
+
+    const tickets = await prisma.ticket.findMany({
+        where,
+        skip: offset,
+        take: pageSize,
+        orderBy: sort.field ? { [sort.field]: sort.order || 'asc' } : undefined,
+    });
+
+    const total = await prisma.ticket.count({ where });
+
+    return {
+        data: tickets,
+        total,
+        page,
+        size: pageSize,
+        totalPages: Math.ceil(total / pageSize),
+    };
+}
+
+async function getTicketById(id) {
+    const ticket = await prisma.ticket.findUnique({ where: { id } });
+    if (!ticket) throw new Error('Ticket not found');
+    return ticket;
+}
+
 module.exports = {
     loadInitialTickets,
+    getTickets,
+    getTicketById,
 };
