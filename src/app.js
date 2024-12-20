@@ -11,6 +11,7 @@ const allowedOrigins = [
     'http://localhost:4200',
     'https://raphaelferreiralopes.com.br',
     'http://raphaelferreiralopes.com.br',
+    'http://161.35.183.249:4000',
 ];
 
 app.use(cors({
