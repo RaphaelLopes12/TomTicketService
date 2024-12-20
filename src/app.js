@@ -9,7 +9,8 @@ const app = express();
 
 const allowedOrigins = [
     'http://localhost:4200',
-    'https://raphaelferreiralopes.com.br'
+    'https://raphaelferreiralopes.com.br',
+    'http://raphaelferreiralopes.com.br',
 ];
 
 app.use(cors({
@@ -21,7 +22,7 @@ app.use(cors({
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.use(express.json());
